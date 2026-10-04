@@ -1,0 +1,74 @@
+{
+  "expo": {
+    "name": "NAXVO",
+    "slug": "naxvo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "naxvo",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.naxvo.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "NAXVO usa la cámara para tu foto de perfil, portafolio y evidencias.",
+        "NSPhotoLibraryUsageDescription": "NAXVO usa tus fotos para perfiles, portafolios y evidencias.",
+        "NSLocationWhenInUseUsageDescription": "NAXVO usa tu ubicación para mostrar servicios y profesionales cercanos."
+      }
+    },
+    "android": {
+      "package": "com.naxvo.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0F0D14",
+        "foregroundImage": "./assets/logo-naxvo.png"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "POST_NOTIFICATIONS"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permite que NAXVO acceda a tus fotos para tu perfil y portafolio.",
+          "cameraPermission": "Permite que NAXVO use la cámara para tu perfil y portafolio.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Permite que NAXVO use tu ubicación para encontrar servicios cercanos."
+        }
+      ],
+      "expo-notifications",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/logo-naxvo.png",
+          "imageWidth": 180,
+          "resizeMode": "contain",
+          "backgroundColor": "#0F0D14",
+          "dark": {
+            "image": "./assets/logo-naxvo.png",
+            "backgroundColor": "#0F0D14"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "icon": "./assets/logo-naxvo.png"
+  }
+}

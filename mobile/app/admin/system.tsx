@@ -1,0 +1,8 @@
+import { useEffect, useState } from 'react';
+import { Alert, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { getAdminSystem } from '@/api';
+import { ApiError } from '@/api/client';
+import { Badge, Button, Card, Screen, Title } from '@/components/ui';
+import { useTheme } from '@/context/ThemeContext';
+export default function System(){const{palette}=useTheme();const[data,setData]=useState<any>(null);async function load(){try{setData(await getAdminSystem())}catch(e){Alert.alert('Sistema',e instanceof ApiError?e.message:'No se pudo cargar.')}}useEffect(()=>{load()},[]);return <Screen><Button title="Volver al panel" variant="ghost" icon="arrow-back" onPress={()=>router.back()}/><Title subtitle="Diagnóstico del backend, seguridad y configuración de pagos.">Estado del sistema</Title>{(data?.checks??[]).map((c:any,i:number)=><Card key={i}><View style={{flexDirection:'row',justifyContent:'space-between',gap:8}}><Text style={{color:palette.text,fontWeight:'900',flex:1}}>{c.name}</Text><Badge text={c.ok?'OK':'Revisar'} tone={c.ok?'success':'warning'}/></View><Text style={{color:palette.muted}}>{c.value}</Text></Card>)}<Title subtitle="Últimos eventos de seguridad">Seguridad</Title>{(data?.security_events??[]).slice(0,30).map((e:any)=><Card key={e.id}><Text style={{color:palette.text,fontWeight:'900'}}>{e.tipo} · {e.resultado}</Text><Text style={{color:palette.muted}}>{e.usuario_nombre||'Sin usuario'} · {e.fecha}</Text>{e.detalle?<Text style={{color:palette.text}}>{e.detalle}</Text>:null}</Card>)}<Button title="Actualizar diagnóstico" variant="ghost" icon="refresh-outline" onPress={load}/></Screen>}
